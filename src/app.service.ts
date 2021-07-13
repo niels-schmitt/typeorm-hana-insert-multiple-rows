@@ -7,7 +7,7 @@ import { Photo } from './photo.entity';
 export class AppService {
   constructor(
     @InjectRepository(Photo)
-    private readonly photoRepository: Repository<Photo>,
+    private readonly photoRepository: Repository<Photo>
   ) {}
 
   async getPhotos(): Promise<Photo[]> {
@@ -30,7 +30,7 @@ export class AppService {
         .insert()
         .into(Photo)
         .values(photos)
-        .getSql(),
+        .getSql()
     );
     const result = await this.photoRepository
       .createQueryBuilder()
