@@ -1,12 +1,23 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Photo } from './photo.entity';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/photos')
+  async getPhotos(): Promise<Photo[]> {
+    return this.appService.getPhotos();
+  }
+
+  @Post('/photos')
+  async postPhotos(@Body() names: string[]): Promise<Photo[]> {
+    return this.appService.insertPhotos(names);
+  }
+
+  @Post('/photosByQueryBuilder')
+  async postPhotosByQueryBuilder(@Body() names: string[]): Promise<Photo[]> {
+    return this.appService.insertPhotosByQueryBuilder(names);
   }
 }
